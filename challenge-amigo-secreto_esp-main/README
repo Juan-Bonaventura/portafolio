@@ -1,0 +1,80 @@
+# Sorteo de Amigo Secreto
+
+Este proyecto es una sencilla aplicación en JavaScript para agregar amigos a una lista y realizar un sorteo aleatorio para determinar el "Amigo Secreto".
+
+## Características
+- Permite agregar nombres de amigos a una lista.
+- Evita agregar nombres duplicados.
+- Muestra la lista actualizada de amigos en la pantalla.
+- Realiza un sorteo aleatorio para seleccionar un "Amigo Secreto".
+
+## Uso
+1. Ingresar el nombre de un amigo en el campo de texto.
+2. Hacer clic en el botón "Agregar Amigo" para añadirlo a la lista.
+3. Una vez agregados los participantes, hacer clic en "Sortear" para seleccionar un amigo secreto aleatoriamente.
+
+## Código Principal
+
+### Función para agregar un amigo a la lista
+```javascript
+function agregarAmigo() {
+  const inputNombre = document.getElementById('nombreAmigo');
+  const nombre = inputNombre.value.trim();
+
+  if (nombre === "") {
+    alert("Por favor, ingresa un nombre válido.");
+  } else if (listaAmigos.includes(nombre)) {
+    alert("Este amigo ya ha sido agregado.");
+  } else {
+    listaAmigos.push(nombre);
+    actualizarListaAmigos();
+    inputNombre.value = ""; // Limpiar el campo de entrada
+  }
+}
+```
+
+### Función para actualizar la lista visual de amigos
+```javascript
+function actualizarListaAmigos() {
+  const listaElement = document.getElementById('listaAmigos');
+  listaElement.innerHTML = ""; // Limpiar la lista actual
+
+  listaAmigos.forEach((amigo, index) => {
+    const li = document.createElement('li');
+    li.textContent = amigo;
+    listaElement.appendChild(li);
+  });
+}
+```
+
+### Función para realizar el sorteo
+```javascript
+function sortearAmigoSecreto() {
+  if (listaAmigos.length === 0) {
+    alert("No hay suficientes amigos para realizar el sorteo.");
+    return;
+  }
+
+  const indiceAleatorio = Math.floor(Math.random() * listaAmigos.length);
+  const amigoSecreto = listaAmigos[indiceAleatorio];
+
+  document.getElementById('resultado').textContent = `El amigo secreto es: ${amigoSecreto}`;
+}
+```
+
+### Eventos asignados a los botones
+```javascript
+document.getElementById('btnAgregarAmigo').addEventListener('click', agregarAmigo);
+document.getElementById('btnSortear').addEventListener('click', sortearAmigoSecreto);
+```
+
+## Requisitos
+- Un archivo HTML que contenga un campo de entrada (`input`), una lista (`ul`) y botones (`button`) con los respectivos IDs usados en el código.
+- Un entorno donde ejecutar JavaScript (navegador web).
+
+## Contribuciones
+Si deseas mejorar este proyecto, ¡eres bienvenido a hacerlo! Puedes proponer cambios mediante un pull request o abrir un issue si encuentras un problema.
+
+## Licencia
+Este proyecto es de código abierto y puede ser utilizado libremente.
+
